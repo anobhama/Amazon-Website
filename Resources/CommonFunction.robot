@@ -37,11 +37,11 @@ Click on the login link
     sleep       3s
 
 Login using email
-    ${email}        input text       ${email_txt}        anobhama99@gmail.com
+    ${email}        input text       ${email_txt}        Your_correct_email_id
     sleep       3s
     click element       ${Continue_btn}
     sleep   3s
-    ${passwrd}      input password       ${passwrd_txt}        Jappyrose@23
+    ${passwrd}      input password       ${passwrd_txt}        Your_correct_password
     sleep       3s
     click element       ${signIn_btn}
     sleep   3s
