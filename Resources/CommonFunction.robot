@@ -1,7 +1,9 @@
 *** Settings ***
 Documentation   To validate the Amazon website
 Library     SeleniumLibrary
+Library     String
 Variables        ../Page Objects/PO.py
+Resource        ../TestData/Input.robot
 
 *** Keywords ***
 Close the browser
@@ -11,6 +13,17 @@ Open the browser and launch the amazon website
     Create Webdriver    Chrome      executable_path=${chrome_path}
     Go To   ${url}
     maximize browser window
+
+Login into an account
+    [arguments]         ${EMAIL}        ${PASSWRD}
+    Click on the login link
+    Login using email       ${EMAIL}
+    Enter the password      ${PASSWRD}
+    Validate the page is loaded
+
+Log out of an account
+    Mouse over the login link
+    Log out of the account
 
 Validate the page is loaded
     wait until element is visible        ${logo}
@@ -37,11 +50,34 @@ Click on the login link
     sleep       3s
 
 Login using email
-    ${email}        input text       ${email_txt}        Your_correct_email_id
+    [arguments]         ${EMAIL} 
+    ${email}        input text       ${email_txt}        ${EMAIL}
     sleep       3s
     click element       ${Continue_btn}
     sleep   3s
-    ${passwrd}      input password       ${passwrd_txt}        Your_correct_password
+
+Enter the password
+    [arguments]          ${PASSWRD}
+    ${passwrd}      input password       ${passwrd_txt}        ${PASSWRD}
     sleep       3s
     click element       ${signIn_btn}
     sleep   3s
+
+Mouse over the login link
+    mouse over      ${login_link}
+    sleep       3s
+    wait until element is visible       ${Signout_btn}
+
+Log out of the account
+    sleep       3s
+    click element       ${Signout_btn}
+    wait until element is visible           //h1[@class='a-spacing-small']
+    sleep       3s
+
+Validate the error message
+    ${response}   get text        //span[@class='a-list-item']
+    ${response}     remove string       ${response}     ${SPACE}
+    Log             ${response}
+    Log             ${wrg_mail_msg}
+    ${failure_msg}      BuiltIn.Set Variable       Not matching
+    run keyword if      '''${response}'''=='''${wrg_mail_msg}'''        fail        ${failure_msg}

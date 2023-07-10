@@ -16,3 +16,6 @@ Continue_btn="xpath://input[@id='continue']"
 passwrd_txt="xpath://input[@id='ap_password']"
 signIn_btn="xpath://input[@id='signInSubmit']"
 
+#TC_4_LogOut_Of_Amazon_Account
+Signout_btn="xpath://span[contains(text(),'Sign Out')]"
+
