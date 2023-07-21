@@ -42,6 +42,15 @@ TC_5_Login_Into_Amazon_With_Wrong_MailId
     Open the browser and launch the amazon website
     Validate the page is loaded
     Click on the login link
-    Login into an account       ${wrg_email}     ${wrg_password}
-    Validate the error message
+    Login using email           ${wrg_email}
+    Validate the error message      ${wrg_mail_msg}
+    close all browsers
+
+TC_6_Login_Into_Amazon_With_Wrong_Password
+    Open the browser and launch the amazon website
+    Validate the page is loaded
+    Click on the login link
+    Login using email           ${Crt_email}
+    Enter the password          ${wrg_password}
+    Validate the error message      ${wrg_passwrd_msg}
     close all browsers

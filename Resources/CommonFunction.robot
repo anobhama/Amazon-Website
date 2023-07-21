@@ -50,7 +50,7 @@ Click on the login link
     sleep       3s
 
 Login using email
-    [arguments]         ${EMAIL} 
+    [arguments]         ${EMAIL}
     ${email}        input text       ${email_txt}        ${EMAIL}
     sleep       3s
     click element       ${Continue_btn}
@@ -75,9 +75,7 @@ Log out of the account
     sleep       3s
 
 Validate the error message
+    [arguments]     ${ERROR_MSG}
     ${response}   get text        //span[@class='a-list-item']
-    ${response}     remove string       ${response}     ${SPACE}
-    Log             ${response}
-    Log             ${wrg_mail_msg}
-    ${failure_msg}      BuiltIn.Set Variable       Not matching
-    run keyword if      '''${response}'''=='''${wrg_mail_msg}'''        fail        ${failure_msg}
+    ${failure_msg}      BuiltIn.Set Variable       Matched
+    run keyword if      '''${response}'''!='''${ERROR_MSG}'''  fail        ${failure_msg}
